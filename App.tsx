@@ -14,9 +14,10 @@ import FAQ from './components/FAQ';
 import Testimonials from './components/Testimonials';
 import HeroCarousel from './components/HeroCarousel';
 import HairQuiz from './components/HairQuiz';
+import CartSidebar from './components/CartSidebar';
 import SEO from './components/SEO';
 import { PRODUCTS, BENEFITS, CATEGORIES } from './constants';
-import { BrandType, Product } from './types';
+import { BrandType, Product, CartItem } from './types';
 import { Search, Filter, ArrowDownWideNarrow, Sparkles } from 'lucide-react';
 
 type SortOption = 'relevance' | 'price_asc' | 'price_desc' | 'best_seller';
@@ -31,17 +32,56 @@ const App: React.FC = () => {
   const [showQuiz, setShowQuiz] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Estados do Carrinho
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
   // Filtros e Ordenação
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
   const [sortBy, setSortBy] = useState<SortOption>('relevance');
   const [visibleCount, setVisibleCount] = useState(8);
 
-  // Simular loading inicial
+  // Carregar carrinho do LocalStorage
   useEffect(() => {
+    const savedCart = localStorage.getItem('ne_cart');
+    if (savedCart) {
+        setCartItems(JSON.parse(savedCart));
+    }
+    
     setTimeout(() => setIsLoading(false), 1500);
     const timer = setTimeout(() => setShowFeaturedPopup(true), 5000);
     return () => clearTimeout(timer);
   }, []);
+
+  // Salvar carrinho no LocalStorage sempre que mudar
+  useEffect(() => {
+    localStorage.setItem('ne_cart', JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  // Lógica do Carrinho
+  const addToCart = (product: Product) => {
+    setCartItems(prev => {
+        const existing = prev.find(item => item.id === product.id);
+        if (existing) {
+            return prev.map(item => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
+        }
+        return [...prev, { ...product, quantity: 1 }];
+    });
+    setIsCartOpen(true);
+  };
+
+  const updateQuantity = (id: number, delta: number) => {
+    setCartItems(prev => prev.map(item => {
+        if (item.id === id) {
+            return { ...item, quantity: Math.max(1, item.quantity + delta) };
+        }
+        return item;
+    }));
+  };
+
+  const removeFromCart = (id: number) => {
+    setCartItems(prev => prev.filter(item => item.id !== id));
+  };
 
   const filteredProducts = useMemo(() => {
     let result = PRODUCTS.filter(product => {
@@ -89,6 +129,8 @@ const App: React.FC = () => {
         activeBrand={activeBrand}
         setActiveBrand={(brand) => { setActiveBrand(brand); setActiveCategory(null); }}
         onProductSelect={setSelectedProduct}
+        cartCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+        onOpenCart={() => setIsCartOpen(true)}
       />
 
       <div className="h-[230px] md:h-[240px]"></div>
@@ -185,7 +227,8 @@ const App: React.FC = () => {
               <ProductCard 
                 key={product.id} 
                 product={product} 
-                onOpenPreview={setSelectedProduct} 
+                onOpenPreview={setSelectedProduct}
+                onAddToCart={addToCart}
               />
             ))
           ) : (
@@ -226,12 +269,21 @@ const App: React.FC = () => {
       <SalesNotification />
       <FloatingChat />
       <Footer />
+      
+      <CartSidebar 
+        isOpen={isCartOpen} 
+        onClose={() => setIsCartOpen(false)}
+        cartItems={cartItems}
+        onUpdateQuantity={updateQuantity}
+        onRemoveItem={removeFromCart}
+      />
 
       {selectedProduct && (
         <ProductModal 
             product={selectedProduct} 
             onClose={() => setSelectedProduct(null)} 
-            onSwitchProduct={setSelectedProduct} 
+            onSwitchProduct={setSelectedProduct}
+            onAddToCart={addToCart}
         />
       )}
       {showFeaturedPopup && featuredProduct && <FeaturedPopup product={featuredProduct} onClose={() => setShowFeaturedPopup(false)} />}

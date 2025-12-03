@@ -1,16 +1,17 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { Product } from '../types';
-import { X, ShieldCheck, Heart, ShoppingBag } from 'lucide-react';
-import { PHONE_NUMBER, PRODUCTS } from '../constants';
+import { X, ShieldCheck, Heart, ShoppingBag, Plus } from 'lucide-react';
+import { PRODUCTS } from '../constants';
 
 interface ProductModalProps {
   product: Product;
   onClose: () => void;
   onSwitchProduct: (product: Product) => void;
+  onAddToCart: (product: Product) => void;
 }
 
-const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onSwitchProduct }) => {
+const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onSwitchProduct, onAddToCart }) => {
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -42,10 +43,9 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onSwitchP
 
   const discount = Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100);
 
-  const handleBuyClick = () => {
-    const message = `Olá! Vi o *${product.name}* no site e quero comprar.`;
-    const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+  const handleAddToCart = () => {
+    onAddToCart(product);
+    onClose();
   };
 
   return (
@@ -110,10 +110,10 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onSwitchP
                     
                         <div className="flex gap-3">
                             <button 
-                                onClick={handleBuyClick}
+                                onClick={handleAddToCart}
                                 className="flex-1 bg-action hover:bg-green-700 text-white font-bold uppercase tracking-widest py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
                             >
-                                Finalizar Compra
+                                <Plus size={20} /> Adicionar à Sacola
                             </button>
                             <button className="bg-gray-100 hover:bg-gray-200 p-4 rounded-xl text-gray-600 transition-colors">
                                 <Heart size={20} />
@@ -150,10 +150,10 @@ const ProductModal: React.FC<ProductModalProps> = ({ product, onClose, onSwitchP
         {/* MOBILE STICKY FOOTER (Fixo no rodapé) */}
         <div className="md:hidden absolute bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-100 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] z-20 flex gap-3">
             <button 
-                onClick={handleBuyClick}
+                onClick={handleAddToCart}
                 className="flex-1 bg-action text-white font-bold uppercase tracking-wider py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2 text-sm animate-pulse-slow"
             >
-                Comprar Agora
+                Adicionar à Sacola
             </button>
              <button className="bg-gray-100 p-3.5 rounded-xl text-gray-600">
                 <Heart size={20} />

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Search } from 'lucide-react';
+import { Search, ShoppingBag } from 'lucide-react';
 import { BrandType, Product } from '../types';
 import { PRODUCTS } from '../constants';
 
@@ -10,9 +10,19 @@ interface HeaderProps {
   activeBrand: BrandType;
   setActiveBrand: (brand: BrandType) => void;
   onProductSelect?: (product: Product) => void;
+  cartCount: number;
+  onOpenCart: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery, activeBrand, setActiveBrand, onProductSelect }) => {
+const Header: React.FC<HeaderProps> = ({ 
+  searchQuery, 
+  setSearchQuery, 
+  activeBrand, 
+  setActiveBrand, 
+  onProductSelect,
+  cartCount,
+  onOpenCart
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [timeLeft, setTimeLeft] = useState(3600);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -158,6 +168,19 @@ const Header: React.FC<HeaderProps> = ({ searchQuery, setSearchQuery, activeBran
                         )}
                     </div>
                 </div>
+
+                {/* Cart Button */}
+                <button 
+                  onClick={onOpenCart}
+                  className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"
+                >
+                  <ShoppingBag className="text-primary" size={22} />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-action text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
+                      {cartCount}
+                    </span>
+                  )}
+                </button>
             </div>
         </div>
 

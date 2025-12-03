@@ -1,16 +1,17 @@
 
 import React, { useState } from 'react';
 import { Product } from '../types';
-import { PHONE_NUMBER } from '../constants';
-import { Heart } from 'lucide-react';
+import { Heart, Plus, Check } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
   onOpenPreview: (product: Product) => void;
+  onAddToCart: (product: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenPreview }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenPreview, onAddToCart }) => {
   const discount = Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100);
+  const [isAdded, setIsAdded] = useState(false);
   
   // Estado local para wishlist
   const [isWishlist, setIsWishlist] = useState(() => {
@@ -24,11 +25,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenPreview }) => 
     localStorage.setItem(`wishlist_${product.id}`, String(newState));
   };
 
-  const handleBuyClick = (e: React.MouseEvent) => {
+  const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const message = `Olá! Quero garantir o *${product.name}* com desconto de ${discount}% por R$ ${product.price.toFixed(2)}`;
-    const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    onAddToCart(product);
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 2000);
   };
 
   return (
@@ -121,10 +122,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenPreview }) => 
             </div>
 
             <button 
-                onClick={handleBuyClick}
-                className="w-full bg-action hover:bg-green-700 text-white text-[11px] font-bold uppercase tracking-wider py-3 rounded-lg shadow-glow transition-all active:scale-95 flex items-center justify-center gap-2"
+                onClick={handleAddToCart}
+                className={`w-full text-white text-[11px] font-bold uppercase tracking-wider py-3 rounded-lg shadow-glow transition-all active:scale-95 flex items-center justify-center gap-2 ${
+                  isAdded ? 'bg-green-700' : 'bg-action hover:bg-green-700'
+                }`}
             >
-                Comprar
+                {isAdded ? (
+                  <>
+                    <Check size={16} /> Adicionado
+                  </>
+                ) : (
+                  <>
+                    <Plus size={16} /> Adicionar
+                  </>
+                )}
             </button>
         </div>
       </div>

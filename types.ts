@@ -18,6 +18,10 @@ export interface Product {
   rating: number;
 }
 
+export interface CartItem extends Product {
+  quantity: number;
+}
+
 export interface Category {
   id: string;
   icon: string;
