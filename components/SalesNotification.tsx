@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Product } from '../types';
 import { PRODUCTS } from '../constants';
@@ -20,14 +21,14 @@ const SalesNotification: React.FC = () => {
   const [data, setData] = useState<{name: string, location: string, product: Product} | null>(null);
 
   useEffect(() => {
-    // Primeira notificação aparece rápido (4 seg)
+    // Primeira notificação demora mais (10 seg)
     const initialTimer = setTimeout(() => {
       triggerNotification();
-    }, 4000);
+    }, 10000);
 
-    // Loop infinito com intervalos aleatórios entre 15 e 30 segundos
+    // Loop infinito com intervalos longos (entre 45s e 90s)
     const loop = () => {
-      const randomInterval = Math.floor(Math.random() * (30000 - 15000 + 1) + 15000);
+      const randomInterval = Math.floor(Math.random() * (90000 - 45000 + 1) + 45000);
       setTimeout(() => {
         triggerNotification();
         loop();
@@ -51,17 +52,17 @@ const SalesNotification: React.FC = () => {
     });
     setVisible(true);
 
-    // Esconder após 5 segundos
+    // Esconder após 4 segundos (rápido)
     setTimeout(() => {
       setVisible(false);
-    }, 5000);
+    }, 4000);
   };
 
   if (!data) return null;
 
   return (
     <div 
-      className={`fixed bottom-4 left-4 z-50 max-w-[300px] bg-white rounded-lg shadow-2xl border-l-4 border-action p-3 flex items-center gap-3 transition-all duration-500 transform ${
+      className={`fixed bottom-4 left-4 z-40 max-w-[240px] bg-white rounded-lg shadow-xl border-l-2 border-action p-2.5 flex items-center gap-2.5 transition-all duration-700 transform ${
         visible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0 pointer-events-none'
       }`}
     >
@@ -69,19 +70,19 @@ const SalesNotification: React.FC = () => {
         <img 
           src={data.product.image} 
           alt="Product" 
-          className="w-12 h-12 object-contain rounded bg-gray-50 p-1 border border-gray-100"
+          className="w-9 h-9 object-contain rounded bg-gray-50 p-0.5 border border-gray-100"
         />
         <div className="absolute -bottom-1 -right-1 bg-white rounded-full">
-           <CheckCircle2 size={14} className="text-action fill-white" />
+           <CheckCircle2 size={10} className="text-action fill-white" />
         </div>
       </div>
       
-      <div className="flex flex-col">
-        <p className="text-[10px] text-gray-500 flex items-center gap-1">
-          <span className="font-bold text-gray-800">{data.name}</span> de {data.location}
+      <div className="flex flex-col min-w-0">
+        <p className="text-[9px] text-gray-500 flex items-center gap-1 truncate">
+          <span className="font-bold text-gray-800">{data.name}</span> de {data.location.split(',')[0]}
         </p>
-        <p className="text-[9px] text-gray-400 mb-0.5">comprou agora mesmo:</p>
-        <p className="text-[10px] font-bold text-primary line-clamp-1 leading-tight">
+        <p className="text-[8px] text-gray-400 mb-0.5">comprou agora:</p>
+        <p className="text-[9px] font-bold text-primary truncate leading-tight">
           {data.product.name}
         </p>
       </div>

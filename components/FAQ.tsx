@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { FAQS } from '../constants';
 import { Plus, Minus } from 'lucide-react';
@@ -10,7 +11,7 @@ const FAQ: React.FC = () => {
   };
 
   return (
-    <section className="py-12 bg-white rounded-xl my-8 shadow-sm border border-gray-100">
+    <section id="faq-section" className="py-12 bg-white rounded-xl my-8 shadow-sm border border-gray-100">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-10">
             <h2 className="font-serif text-2xl md:text-3xl font-bold text-primary mb-2">Perguntas Frequentes</h2>

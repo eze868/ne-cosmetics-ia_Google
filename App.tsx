@@ -9,23 +9,26 @@ import SalesNotification from './components/SalesNotification';
 import FloatingChat from './components/FloatingChat';
 import Breadcrumbs from './components/Breadcrumbs';
 import ProductSkeleton from './components/ProductSkeleton';
-import CategoryBar from './components/CategoryBar'; // Novo Componente
+import CategoryBar from './components/CategoryBar';
 import FAQ from './components/FAQ';
 import Testimonials from './components/Testimonials';
+import HeroCarousel from './components/HeroCarousel';
+import HairQuiz from './components/HairQuiz';
 import SEO from './components/SEO';
 import { PRODUCTS, BENEFITS, CATEGORIES } from './constants';
 import { BrandType, Product } from './types';
-import { Search, Filter, ArrowDownWideNarrow } from 'lucide-react';
+import { Search, Filter, ArrowDownWideNarrow, Sparkles } from 'lucide-react';
 
 type SortOption = 'relevance' | 'price_asc' | 'price_desc' | 'best_seller';
 
 const App: React.FC = () => {
   // Estados principais
   const [activeBrand, setActiveBrand] = useState<BrandType>('TODAS');
-  const [activeCategory, setActiveCategory] = useState<string | null>(null); // Novo Estado
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showFeaturedPopup, setShowFeaturedPopup] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   // Filtros e Ordenação
@@ -43,7 +46,7 @@ const App: React.FC = () => {
   const filteredProducts = useMemo(() => {
     let result = PRODUCTS.filter(product => {
       const matchesBrand = activeBrand === 'TODAS' || product.brand === activeBrand;
-      const matchesCategory = activeCategory === null || product.categoryId === activeCategory; // Nova Lógica
+      const matchesCategory = activeCategory === null || product.categoryId === activeCategory;
       const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                             product.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
       const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
@@ -84,7 +87,7 @@ const App: React.FC = () => {
         searchQuery={searchQuery} 
         setSearchQuery={setSearchQuery} 
         activeBrand={activeBrand}
-        setActiveBrand={(brand) => { setActiveBrand(brand); setActiveCategory(null); }} // Resetar categoria ao mudar marca
+        setActiveBrand={(brand) => { setActiveBrand(brand); setActiveCategory(null); }}
         onProductSelect={setSelectedProduct}
       />
 
@@ -92,27 +95,12 @@ const App: React.FC = () => {
 
       <main className="container mx-auto px-4 md:px-8 pb-20">
         
-        {/* Breadcrumbs de Navegação */}
         <Breadcrumbs activeBrand={activeBrand} setActiveBrand={setActiveBrand} />
 
-        {/* HERO BANNER - Apenas na Home */}
+        {/* HERO CAROUSEL - Apenas na Home */}
         {activeBrand === 'TODAS' && activeCategory === null && !searchQuery && (
             <div className="mb-10 animate-fade-in">
-                <div className="relative w-full rounded-2xl overflow-hidden bg-primary text-white h-64 md:h-80 flex flex-col justify-center items-center text-center p-6 shadow-2xl">
-                    <div className="absolute inset-0 opacity-50 bg-[url('https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay"></div>
-                    <div className="relative z-10 max-w-lg">
-                        <span className="bg-white text-primary text-[10px] font-bold uppercase tracking-[0.2em] px-3 py-1 rounded mb-4 inline-block">Professional Care</span>
-                        <h2 className="font-serif text-3xl md:text-5xl mb-6 leading-tight font-medium">
-                            Resultado de Salão <br/><span className="text-accent italic font-light">na sua casa</span>
-                        </h2>
-                        <button 
-                            onClick={() => window.scrollTo({top: 800, behavior: 'smooth'})}
-                            className="bg-action text-white px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-green-600 transition-colors shadow-lg"
-                        >
-                            Ver Ofertas
-                        </button>
-                    </div>
-                </div>
+                <HeroCarousel />
 
                 {/* BARRA DE BENEFÍCIOS */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 py-6 border-b border-gray-200 bg-white rounded-xl px-4 shadow-sm">
@@ -125,6 +113,19 @@ const App: React.FC = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+                
+                {/* CHAMADA DO QUIZ */}
+                <div className="mt-8 bg-gradient-to-r from-primary to-gray-800 rounded-xl p-6 text-white flex items-center justify-between shadow-lg relative overflow-hidden cursor-pointer" onClick={() => setShowQuiz(true)}>
+                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                    <div className="relative z-10">
+                        <span className="bg-accent text-primary text-[9px] font-black px-2 py-0.5 rounded uppercase mb-2 inline-block">Consultoria Grátis</span>
+                        <h3 className="font-serif text-xl font-bold mb-1">Não sabe qual escolher?</h3>
+                        <p className="text-xs text-gray-300">Responda 3 perguntas e descubra o ideal.</p>
+                    </div>
+                    <button className="bg-white text-primary w-10 h-10 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform relative z-10">
+                        <Sparkles size={18} className="text-accent" />
+                    </button>
                 </div>
             </div>
         )}
@@ -178,7 +179,6 @@ const App: React.FC = () => {
         {/* GRID DE PRODUTOS */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 min-h-[400px]">
           {isLoading ? (
-            // Skeleton Loading State
             [...Array(4)].map((_, i) => <ProductSkeleton key={i} />)
           ) : visibleProducts.length > 0 ? (
             visibleProducts.map(product => (
@@ -204,7 +204,7 @@ const App: React.FC = () => {
           )}
         </div>
 
-        {/* Paginação / Carregar Mais */}
+        {/* Paginação */}
         {!isLoading && visibleProducts.length < filteredProducts.length && (
             <div className="text-center mt-12">
                 <button 
@@ -219,20 +219,25 @@ const App: React.FC = () => {
             </div>
         )}
         
-        {/* Nova Seção: FAQ */}
         <FAQ />
-        
-        {/* Nova Seção: Depoimentos */}
         <Testimonials />
-
       </main>
 
       <SalesNotification />
       <FloatingChat />
       <Footer />
 
-      {selectedProduct && <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />}
+      {selectedProduct && (
+        <ProductModal 
+            product={selectedProduct} 
+            onClose={() => setSelectedProduct(null)} 
+            onSwitchProduct={setSelectedProduct} 
+        />
+      )}
       {showFeaturedPopup && featuredProduct && <FeaturedPopup product={featuredProduct} onClose={() => setShowFeaturedPopup(false)} />}
+      
+      {/* Quiz Modal */}
+      {showQuiz && <HairQuiz onClose={() => setShowQuiz(false)} onProductFound={(p) => { setShowQuiz(false); setSelectedProduct(p); }} />}
     </div>
   );
 };
