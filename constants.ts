@@ -1,8 +1,7 @@
-import { Product, Category, Benefit } from './types';
+import { Product, Category, Benefit, FAQItem, Testimonial } from './types';
 
 export const PHONE_NUMBER = "5511999999999";
 
-// IDs atualizados para facilitar a filtragem
 export const CATEGORIES: Category[] = [
   { id: 'color', icon: '💇‍♀️', title: 'Cabelos Coloridos', subtitle: 'Proteção da cor e matizadores' },
   { id: 'finish', icon: '✨', title: 'Finalização', subtitle: 'Óleos, Leave-ins e Anti-frizz' },
@@ -15,6 +14,28 @@ export const BENEFITS: Benefit[] = [
   { icon: '💯', title: '100% Original', description: 'Distribuidor autorizado' },
   { icon: '🔄', title: 'Garantia Total', description: '7 dias para troca' },
   { icon: '💎', title: 'Preço Imbatível', description: 'Melhores preços do mercado' },
+];
+
+export const FAQS: FAQItem[] = [
+  { question: "Os produtos são originais?", answer: "Sim! Somos distribuidores autorizados de todas as marcas (Wella, Truss, Braé, etc). Todos os produtos possuem nota fiscal e garantia de procedência." },
+  { question: "Qual o prazo de entrega?", answer: "Para São Paulo capital entregamos em até 24h. Para demais regiões, o prazo varia de 2 a 5 dias úteis via transportadora expressa." },
+  { question: "Aceitam quais formas de pagamento?", answer: "Aceitamos Cartão de Crédito em até 12x, PIX com 5% de desconto e Boleto Bancário." },
+  { question: "Como funciona a troca?", answer: "Você tem até 7 dias após o recebimento para solicitar a troca ou devolução caso não esteja satisfeito com o produto." }
+];
+
+export const TESTIMONIALS: Testimonial[] = [
+  { id: 1, name: "Fernanda Lima", role: "Cabeleireira", content: "Os produtos chegaram super rápido e muito bem embalados. O Kit Wella Fusion salvou o cabelo das minhas clientes!", rating: 5 },
+  { id: 2, name: "Juliana Costa", role: "Cliente VIP", content: "Amei o atendimento via WhatsApp. Me ajudaram a escolher o shampoo certo para meu loiro. Recomendo demais!", rating: 5 },
+  { id: 3, name: "Roberta Silva", role: "Cliente", content: "Preço imbatível. Pesquisei em vários sites e aqui foi onde encontrei o melhor valor no Kit Truss.", rating: 5 },
+  { id: 4, name: "Camila Santos", role: "Cliente", content: "Originalidade garantida. Já comprei em outros lugares e tive problemas, mas aqui é 100% confiável.", rating: 5 },
+  { id: 5, name: "Patricia Oliveira", role: "Cliente", content: "A entrega foi surpreendentemente rápida, chegou em 2 dias aqui no interior de SP.", rating: 5 },
+  { id: 6, name: "Amanda Souza", role: "Cabeleireira", content: "Uso profissional e recomendo. O rendimento dos produtos de 1L é excelente para o salão.", rating: 5 },
+  { id: 7, name: "Beatriz M.", role: "Cliente Nova", content: "O Oil Reflections mudou meu cabelo. Brilho incrível! Obrigada pela indicação.", rating: 5 },
+  { id: 8, name: "Carla Dias", role: "Cliente", content: "Embalagem discreta e segura. Nada vazou, o que é raro em compras de shampoo online.", rating: 5 },
+  { id: 9, name: "Mariana K.", role: "Cliente VIP", content: "Sempre compro os kits de manutenção. O preço vale muito a pena pela qualidade.", rating: 5 },
+  { id: 10, name: "Larissa F.", role: "Cliente", content: "Atendimento nota 10. Tive dúvidas sobre o cronograma capilar e foram super atenciosos.", rating: 5 },
+  { id: 11, name: "Vanessa T.", role: "Cliente", content: "Produtos originais com selo e validade longa. Pode confiar de olhos fechados.", rating: 5 },
+  { id: 12, name: "Gabriela P.", role: "Cliente", content: "O desconto no PIX fez toda diferença. Comprarei novamente com certeza!", rating: 5 }
 ];
 
 export const PRODUCTS: Product[] = [
@@ -30,7 +51,10 @@ export const PRODUCTS: Product[] = [
     price: 159.90,
     oldPrice: 199.90,
     tags: ['Reconstrução', 'Resistência', 'Brilho'],
-    criticalStock: true
+    criticalStock: true,
+    isBestSeller: true,
+    reviews: 128,
+    rating: 4.9
   },
   {
     id: 2,
@@ -42,7 +66,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/yFMYPwSy/truss-basic.webp',
     price: 244.90,
     oldPrice: 319.90,
-    tags: ['Econômico', 'Profissional', 'Limpeza']
+    tags: ['Econômico', 'Profissional', 'Limpeza'],
+    reviews: 45,
+    rating: 4.8
   },
   {
     id: 3,
@@ -55,7 +81,10 @@ export const PRODUCTS: Product[] = [
     price: 159.90,
     oldPrice: 199.90,
     tags: ['Rápido', 'Resultado Imediato', 'Tratamento'],
-    criticalStock: true
+    criticalStock: true,
+    isNew: true,
+    reviews: 89,
+    rating: 5.0
   },
   {
     id: 4,
@@ -67,7 +96,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/ZzQXbxCr/Truss-Frizz-Zero.webp',
     price: 104.90,
     oldPrice: 149.90,
-    tags: ['Zero Frizz', 'Anti-Umidade', 'Alinhamento']
+    tags: ['Zero Frizz', 'Anti-Umidade', 'Alinhamento'],
+    reviews: 210,
+    rating: 4.7
   },
   {
     id: 5,
@@ -80,7 +111,10 @@ export const PRODUCTS: Product[] = [
     price: 109.90,
     oldPrice: 149.90,
     tags: ['Salvador', 'Reconstrução', 'Danos Severos'],
-    criticalStock: true
+    criticalStock: true,
+    isBestSeller: true,
+    reviews: 350,
+    rating: 5.0
   },
 
   // --- WELLA ---
@@ -94,7 +128,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/PvjtSgMz/Wella-Professionals-Oil-Reflections-Luminous-Reveal-Shampoo-250ml.webp',
     price: 89.90,
     oldPrice: 119.90,
-    tags: ['Brilho', 'Luminosidade', 'Luxo']
+    tags: ['Brilho', 'Luminosidade', 'Luxo'],
+    reviews: 92,
+    rating: 4.8
   },
   {
     id: 7,
@@ -106,7 +142,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/nsCrpw3z/Wella-Professionals-Color-Motion-Shampoo-250ml.webp',
     price: 89.90,
     oldPrice: 181.90,
-    tags: ['Cor Viva', 'Proteção', 'Vibrância']
+    tags: ['Cor Viva', 'Proteção', 'Vibrância'],
+    reviews: 67,
+    rating: 4.6
   },
   {
     id: 8,
@@ -119,7 +157,10 @@ export const PRODUCTS: Product[] = [
     price: 142.90,
     oldPrice: 309.90,
     tags: ['Nutrição', 'Vitaminas', 'Concentrado'],
-    criticalStock: true
+    criticalStock: true,
+    isBestSeller: true,
+    reviews: 156,
+    rating: 4.9
   },
   {
     id: 9,
@@ -131,7 +172,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/kshHBygc/Invigo-Nutri-Shampoo-250-Ml-1.webp',
     price: 67.90,
     oldPrice: 153.90,
-    tags: ['Hidratação', 'Maciez', 'Goji Berry']
+    tags: ['Hidratação', 'Maciez', 'Goji Berry'],
+    reviews: 88,
+    rating: 4.7
   },
   {
     id: 10,
@@ -143,7 +186,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/wmCMsGp/Invigo-Nutri-Enrich-M-scara500-G.png',
     price: 184.90,
     oldPrice: 307.90,
-    tags: ['Spa Capilar', 'Rápido', 'Transformação']
+    tags: ['Spa Capilar', 'Rápido', 'Transformação'],
+    reviews: 112,
+    rating: 4.9
   },
   {
     id: 11,
@@ -155,7 +200,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/4nBhXKTQ/Invigo-Nutri-Enrich-M-scara.webp',
     price: 99.90,
     oldPrice: 156.90,
-    tags: ['Manutenção', 'Diária', 'Prático']
+    tags: ['Manutenção', 'Diária', 'Prático'],
+    reviews: 40,
+    rating: 4.5
   },
   {
     id: 12,
@@ -168,7 +215,9 @@ export const PRODUCTS: Product[] = [
     price: 54.90,
     oldPrice: 139.90,
     tags: ['Loiro', 'Matizador', 'Platina'],
-    criticalStock: true
+    criticalStock: true,
+    reviews: 78,
+    rating: 4.8
   },
   {
     id: 13,
@@ -180,7 +229,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/C3gHW9vK/Shampoo-Wella-Professionals-Fusion-1000ml.webp',
     price: 174.90,
     oldPrice: 410.90,
-    tags: ['Profissional', 'Economia', 'Premium']
+    tags: ['Profissional', 'Economia', 'Premium'],
+    reviews: 95,
+    rating: 4.9
   },
   {
     id: 14,
@@ -192,7 +243,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/kVcs4BVN/Condicionador-Wella-Professionals-Fusion-1000ml.webp',
     price: 199.90,
     oldPrice: 490.90,
-    tags: ['Desembaraço', 'Maciez', 'Duradouro']
+    tags: ['Desembaraço', 'Maciez', 'Duradouro'],
+    reviews: 82,
+    rating: 4.9
   },
   {
     id: 15,
@@ -205,7 +258,10 @@ export const PRODUCTS: Product[] = [
     price: 364.99,
     oldPrice: 758.90,
     tags: ['Kit Salão', 'Econômico', 'Completo'],
-    criticalStock: true
+    criticalStock: true,
+    isBestSeller: true,
+    reviews: 245,
+    rating: 5.0
   },
   {
     id: 16,
@@ -217,7 +273,10 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/mFt3tY9y/Kit-Wella-Professionals-Fusion-Shampoo-250ml-Condicionador-200ml-Kit.webp',
     price: 199.90,
     oldPrice: 317.90,
-    tags: ['Iniciante', 'Kit', 'Home Care']
+    tags: ['Iniciante', 'Kit', 'Home Care'],
+    isNew: true,
+    reviews: 30,
+    rating: 4.6
   },
   {
     id: 17,
@@ -230,7 +289,9 @@ export const PRODUCTS: Product[] = [
     price: 184.90,
     oldPrice: 322.90,
     tags: ['Proteção Cor', '1 Litro', 'Profissional'],
-    criticalStock: true
+    criticalStock: true,
+    reviews: 60,
+    rating: 4.7
   },
   {
     id: 18,
@@ -242,7 +303,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/27NsBg9j/Wella-Professionals-Invigo-Color-Brilliance-Shampoo-250ml.webp',
     price: 74.90,
     oldPrice: 149.90,
-    tags: ['Manutenção Cor', 'Home Care', 'Brilho']
+    tags: ['Manutenção Cor', 'Home Care', 'Brilho'],
+    reviews: 45,
+    rating: 4.6
   },
   {
     id: 19,
@@ -254,7 +317,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/Gvf3kyGv/Condicionador-Invigo-Color-Brilliance.webp',
     price: 109.90,
     oldPrice: 219.90,
-    tags: ['Selamento', 'Cutículas', 'Cor']
+    tags: ['Selamento', 'Cutículas', 'Cor'],
+    reviews: 38,
+    rating: 4.7
   },
   {
     id: 20,
@@ -266,7 +331,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/XfTPD6m0/Invigo-Color-Brilliance-Mascara150.webp',
     price: 94.90,
     oldPrice: 156.90,
-    tags: ['Intensivo', 'Semanal', 'Revitalização']
+    tags: ['Intensivo', 'Semanal', 'Revitalização'],
+    reviews: 25,
+    rating: 4.8
   },
   {
     id: 21,
@@ -279,7 +346,10 @@ export const PRODUCTS: Product[] = [
     price: 129.90,
     oldPrice: 179.90,
     tags: ['Óleo', 'Finalizador', 'Luxo'],
-    criticalStock: true
+    criticalStock: true,
+    isBestSeller: true,
+    reviews: 420,
+    rating: 5.0
   },
   {
     id: 22,
@@ -291,7 +361,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/Zk03zRr/Wella-Professionals-Oil-Reflections-Light-leo-Capilar-100ml.webp',
     price: 139.90,
     oldPrice: 239.90,
-    tags: ['Leve', 'Fios Finos', 'Sem Peso']
+    tags: ['Leve', 'Fios Finos', 'Sem Peso'],
+    reviews: 85,
+    rating: 4.8
   },
 
   // --- BRAÉ ---
@@ -305,7 +377,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/k6wKzgBR/Shampoo-Bra-Go-Curly-Crespos-250ml.webp',
     price: 39.90,
     oldPrice: 99.90,
-    tags: ['Cachos', 'Definição', 'Natural']
+    tags: ['Cachos', 'Definição', 'Natural'],
+    reviews: 32,
+    rating: 4.5
   },
   {
     id: 24,
@@ -318,7 +392,10 @@ export const PRODUCTS: Product[] = [
     price: 39.90,
     oldPrice: 89.90,
     tags: ['Renascimento', 'Elasticidade', 'Força'],
-    criticalStock: true
+    criticalStock: true,
+    isNew: true,
+    reviews: 45,
+    rating: 4.9
   },
   {
     id: 25,
@@ -330,7 +407,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/Lh9vD7N1/Bra-Essential-Fluido-Reparador-Leave-in-60ml.webp',
     price: 34.90,
     oldPrice: 79.90,
-    tags: ['Proteção', 'Térmico', 'Reparação']
+    tags: ['Proteção', 'Térmico', 'Reparação'],
+    reviews: 28,
+    rating: 4.7
   },
 
   // --- SEBASTIAN ---
@@ -345,7 +424,10 @@ export const PRODUCTS: Product[] = [
     price: 54.90,
     oldPrice: 119.90,
     tags: ['Elixir', 'Leveza', 'Styling'],
-    criticalStock: true
+    criticalStock: true,
+    isBestSeller: true,
+    reviews: 310,
+    rating: 5.0
   },
 
   // --- CADIVEU ---
@@ -359,7 +441,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/BHmT0Z6C/Kit-Cadiveu-Professional-Essentials-Bye-Bye-Frizz.webp',
     price: 69.90,
     oldPrice: 169.90,
-    tags: ['Anti-Frizz', 'Disciplina', 'Liso']
+    tags: ['Anti-Frizz', 'Disciplina', 'Liso'],
+    reviews: 55,
+    rating: 4.6
   },
   {
     id: 28,
@@ -371,7 +455,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/tp5G2kHB/Kit-Cadiveu-Professional-Essentials-Bye-Bye-Frizz-Alinhamento.webp',
     price: 109.90,
     oldPrice: 219.90,
-    tags: ['Alinhamento', 'Sem Química', 'Liso']
+    tags: ['Alinhamento', 'Sem Química', 'Liso'],
+    reviews: 42,
+    rating: 4.7
   },
   {
     id: 29,
@@ -383,7 +469,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/WvgNyGqd/Kit-Cadiveu-Glamour-Shampoo-250ml-Condicionador.webp',
     price: 75.90,
     oldPrice: 149.90,
-    tags: ['Glamour', 'Brilho', 'Nutrição']
+    tags: ['Glamour', 'Brilho', 'Nutrição'],
+    reviews: 36,
+    rating: 4.8
   },
   {
     id: 30,
@@ -395,7 +483,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/FbX0knph/Cadiveu-Professional-A-a-Oil-leo-Capilar-60ml.webp',
     price: 64.90,
     oldPrice: 99.90,
-    tags: ['Amazônia', 'Antioxidante', 'Proteção UV']
+    tags: ['Amazônia', 'Antioxidante', 'Proteção UV'],
+    reviews: 65,
+    rating: 4.8
   },
 
   // --- MINIATURAS ---
@@ -409,7 +499,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/YBMbSf30/Wella-Professionals-Oil-Reflections-Luminous-Reval-Shampoo-50ml.webp',
     price: 39.90,
     oldPrice: 69.90,
-    tags: ['Viagem', 'Teste', 'Brilho']
+    tags: ['Viagem', 'Teste', 'Brilho'],
+    reviews: 110,
+    rating: 4.9
   },
   {
     id: 32,
@@ -422,7 +514,10 @@ export const PRODUCTS: Product[] = [
     price: 34.90,
     oldPrice: 59.90,
     tags: ['SOS', 'Rápido', 'Viagem'],
-    criticalStock: true
+    criticalStock: true,
+    isNew: true,
+    reviews: 25,
+    rating: 4.8
   },
   {
     id: 33,
@@ -434,7 +529,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/LDZDc0Q1/Wella-Professionals-Ultimate-Luxe-Oil-Shampoo-30ml.webp',
     price: 24.90,
     oldPrice: 59.90,
-    tags: ['Luxo', 'Mini', 'Premium']
+    tags: ['Luxo', 'Mini', 'Premium'],
+    reviews: 15,
+    rating: 4.7
   },
   {
     id: 34,
@@ -446,7 +543,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/KjhYVpKm/Sebastian-Penetraitt.jpg',
     price: 29.90,
     oldPrice: 69.90,
-    tags: ['Reconstrução', 'Mini', 'Forte']
+    tags: ['Reconstrução', 'Mini', 'Forte'],
+    reviews: 48,
+    rating: 4.9
   },
   {
     id: 35,
@@ -458,7 +557,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/S43144Kp/Wella-Professionals-Blondor-Plex-Condicionador-Fortificante-30ml.webp',
     price: 39.90,
     oldPrice: 69.90,
-    tags: ['Loiro', 'Fortificante', 'Mini']
+    tags: ['Loiro', 'Fortificante', 'Mini'],
+    reviews: 33,
+    rating: 4.8
   },
   {
     id: 36,
@@ -470,7 +571,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/67Gx8Rkw/Wella-Professionals-Ultimate-Luxe-Oil-M-scara-Capilar-30ml.webp',
     price: 44.90,
     oldPrice: 79.90,
-    tags: ['Expresso', 'Rápido', 'Luxo']
+    tags: ['Expresso', 'Rápido', 'Luxo'],
+    reviews: 20,
+    rating: 4.7
   },
   {
     id: 37,
@@ -482,7 +585,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/Pz90N4z2/Wella-Professionals-Invigo-Color-Brilliance-M-scara-Capilar-30ml.webp',
     price: 39.90,
     oldPrice: 69.90,
-    tags: ['Cor', 'Viagem', 'Proteção']
+    tags: ['Cor', 'Viagem', 'Proteção'],
+    reviews: 18,
+    rating: 4.6
   },
   {
     id: 38,
@@ -494,7 +599,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/KxXgBwmw/Wella-Professionals-Color-Motion-M-scara-Capilar-30ml.webp',
     price: 39.90,
     oldPrice: 69.90,
-    tags: ['Movimento', 'Cor', 'Leve']
+    tags: ['Movimento', 'Cor', 'Leve'],
+    reviews: 14,
+    rating: 4.5
   },
   {
     id: 39,
@@ -506,7 +613,9 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/4nHwBW06/Bra-Revival-Condicionador-60ml.webp',
     price: 24.90,
     oldPrice: 49.90,
-    tags: ['Renascimento', 'Praia', 'Mini']
+    tags: ['Renascimento', 'Praia', 'Mini'],
+    reviews: 22,
+    rating: 4.6
   },
   {
     id: 40,
@@ -518,6 +627,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/7JnzLbPN/Joico-K-PAK-Color-Therapy-Condicionador-50ml.webp',
     price: 49.90,
     oldPrice: 89.90,
-    tags: ['Terapia', 'Cor', 'Joico']
+    tags: ['Terapia', 'Cor', 'Joico'],
+    reviews: 50,
+    rating: 4.8
   }
 ];

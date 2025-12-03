@@ -11,7 +11,11 @@ export interface Product {
   price: number;
   oldPrice: number;
   tags: string[];
-  criticalStock?: boolean; // Novo campo para gatilho de escassez
+  criticalStock?: boolean;
+  isNew?: boolean;
+  isBestSeller?: boolean;
+  reviews: number;
+  rating: number;
 }
 
 export interface Category {
@@ -25,4 +29,17 @@ export interface Benefit {
   icon: string;
   title: string;
   description: string;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+export interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  content: string;
+  rating: number;
 }
