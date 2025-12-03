@@ -1,15 +1,23 @@
 
 import React, { useState } from 'react';
 import { Product } from '../types';
-import { Heart, Plus, Check } from 'lucide-react';
+import { Heart, Plus, Check, ArrowLeftRight } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
   onOpenPreview: (product: Product) => void;
   onAddToCart: (product: Product) => void;
+  isCompareSelected?: boolean;
+  onToggleCompare?: (product: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenPreview, onAddToCart }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ 
+    product, 
+    onOpenPreview, 
+    onAddToCart,
+    isCompareSelected,
+    onToggleCompare
+}) => {
   const discount = Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100);
   const [isAdded, setIsAdded] = useState(false);
   
@@ -23,6 +31,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenPreview, onAdd
     const newState = !isWishlist;
     setIsWishlist(newState);
     localStorage.setItem(`wishlist_${product.id}`, String(newState));
+  };
+
+  const handleToggleCompare = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (onToggleCompare) onToggleCompare(product);
   };
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -59,16 +72,29 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onOpenPreview, onAdd
             )}
         </div>
 
-        {/* Wishlist Button */}
-        <button 
-            onClick={toggleWishlist}
-            className="absolute top-2 right-2 bg-white/90 p-2 rounded-full shadow-sm z-10 hover:bg-gray-50 transition-colors group/heart"
-        >
-            <Heart 
-                size={16} 
-                className={`transition-colors ${isWishlist ? 'fill-red-500 text-red-500' : 'text-gray-400 group-hover/heart:text-red-500'}`} 
-            />
-        </button>
+        {/* Action Buttons (Wishlist & Compare) */}
+        <div className="absolute top-2 right-2 flex flex-col gap-2 z-10">
+            <button 
+                onClick={toggleWishlist}
+                className="bg-white/90 p-2 rounded-full shadow-sm hover:bg-gray-50 transition-colors group/heart"
+                title="Favoritar"
+            >
+                <Heart 
+                    size={16} 
+                    className={`transition-colors ${isWishlist ? 'fill-red-500 text-red-500' : 'text-gray-400 group-hover/heart:text-red-500'}`} 
+                />
+            </button>
+            
+            {onToggleCompare && (
+                <button 
+                    onClick={handleToggleCompare}
+                    className={`bg-white/90 p-2 rounded-full shadow-sm hover:bg-gray-50 transition-colors ${isCompareSelected ? 'text-accent border-2 border-accent' : 'text-gray-400'}`}
+                    title="Comparar"
+                >
+                    <ArrowLeftRight size={16} />
+                </button>
+            )}
+        </div>
 
         {/* Lazy Loaded Image com Zoom Hover */}
         <img 

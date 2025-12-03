@@ -16,9 +16,10 @@ import HeroCarousel from './components/HeroCarousel';
 import HairQuiz from './components/HairQuiz';
 import CartSidebar from './components/CartSidebar';
 import SEO from './components/SEO';
+import ProductComparator from './components/ProductComparator';
 import { PRODUCTS, BENEFITS, CATEGORIES } from './constants';
 import { BrandType, Product, CartItem } from './types';
-import { Search, Filter, ArrowDownWideNarrow, Sparkles } from 'lucide-react';
+import { Search, Filter, ArrowDownWideNarrow, Sparkles, ArrowLeftRight, X } from 'lucide-react';
 
 type SortOption = 'relevance' | 'price_asc' | 'price_desc' | 'best_seller';
 
@@ -35,6 +36,10 @@ const App: React.FC = () => {
   // Estados do Carrinho
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  // Estados do Comparador
+  const [compareList, setCompareList] = useState<Product[]>([]);
+  const [showComparator, setShowComparator] = useState(false);
 
   // Filtros e Ordenação
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
@@ -81,6 +86,21 @@ const App: React.FC = () => {
 
   const removeFromCart = (id: number) => {
     setCartItems(prev => prev.filter(item => item.id !== id));
+  };
+
+  // Lógica do Comparador
+  const toggleCompare = (product: Product) => {
+    setCompareList(prev => {
+        const exists = prev.find(p => p.id === product.id);
+        if (exists) {
+            return prev.filter(p => p.id !== product.id);
+        }
+        if (prev.length >= 3) {
+            alert("Você só pode comparar até 3 produtos.");
+            return prev;
+        }
+        return [...prev, product];
+    });
   };
 
   const filteredProducts = useMemo(() => {
@@ -229,6 +249,8 @@ const App: React.FC = () => {
                 product={product} 
                 onOpenPreview={setSelectedProduct}
                 onAddToCart={addToCart}
+                isCompareSelected={compareList.some(p => p.id === product.id)}
+                onToggleCompare={toggleCompare}
               />
             ))
           ) : (
@@ -277,6 +299,37 @@ const App: React.FC = () => {
         onUpdateQuantity={updateQuantity}
         onRemoveItem={removeFromCart}
       />
+
+      {/* BARRA FLUTUANTE DE COMPARAÇÃO */}
+      {compareList.length > 0 && !showComparator && (
+        <div className="fixed bottom-24 left-4 right-4 md:left-1/2 md:right-auto md:w-auto md:-translate-x-1/2 z-[90] bg-primary text-white px-5 py-3 rounded-full shadow-2xl flex items-center justify-between md:justify-center gap-4 animate-slide-up border border-gray-800">
+            <span className="text-xs font-bold whitespace-nowrap">{compareList.length} item(s)</span>
+            <div className="flex gap-2">
+                <button 
+                    onClick={() => setShowComparator(true)}
+                    className="bg-accent text-primary px-4 py-1.5 rounded-full text-xs font-bold uppercase hover:bg-white transition-colors flex items-center gap-1 shadow-sm"
+                >
+                    Comparar <ArrowLeftRight size={14} />
+                </button>
+                <button 
+                    onClick={() => setCompareList([])}
+                    className="bg-gray-700 p-1.5 rounded-full hover:bg-red-500 transition-colors"
+                >
+                    <X size={14} />
+                </button>
+            </div>
+        </div>
+      )}
+
+      {/* COMPARADOR MODAL */}
+      {showComparator && (
+        <ProductComparator 
+            products={compareList} 
+            onClose={() => setShowComparator(false)} 
+            onRemove={(id) => toggleCompare(compareList.find(p => p.id === id)!)}
+            onAddToCart={addToCart}
+        />
+      )}
 
       {selectedProduct && (
         <ProductModal 
