@@ -1,3 +1,4 @@
+
 import { Product, Category, Benefit, FAQItem, Testimonial } from './types';
 
 export const PHONE_NUMBER = "5511999999999";

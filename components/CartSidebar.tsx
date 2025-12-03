@@ -19,8 +19,14 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
   onUpdateQuantity, 
   onRemoveItem 
 }) => {
+  // Total com descontos (Valor Final)
   const total = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  const totalSavings = cartItems.reduce((acc, item) => acc + ((item.oldPrice - item.price) * item.quantity), 0);
+  
+  // Total Original (Sem descontos / Gross Total)
+  const grossTotal = cartItems.reduce((acc, item) => acc + (item.oldPrice * item.quantity), 0);
+  
+  // Total Economizado
+  const totalSavings = grossTotal - total;
 
   const handleCheckout = () => {
     if (cartItems.length === 0) return;
@@ -29,11 +35,12 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
     message += `Olá! Gostaria de finalizar a compra dos seguintes itens:\n\n`;
     
     cartItems.forEach(item => {
-      message += `▪️ ${item.quantity}x *${item.name}*\n   (R$ ${(item.price * item.quantity).toFixed(2)})\n`;
+      message += `▪️ ${item.quantity}x *${item.name}*\n   De: ~R$ ${(item.oldPrice * item.quantity).toFixed(2)}~\n   *Por: R$ ${(item.price * item.quantity).toFixed(2)}*\n`;
     });
 
-    message += `\n💰 *Total do Pedido: R$ ${total.toFixed(2)}*`;
-    message += `\n🎁 *Economia: R$ ${totalSavings.toFixed(2)}*`;
+    message += `\n💰 *Valor Original: ~R$ ${grossTotal.toFixed(2)}~*`;
+    message += `\n✅ *Valor Final: R$ ${total.toFixed(2)}*`;
+    message += `\n🎉 *Economia Total: R$ ${totalSavings.toFixed(2)}*`;
     message += `\n\nAguardo instruções de pagamento e entrega.`;
 
     const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -122,8 +129,14 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
                       </button>
                     </div>
                     <div className="text-right">
-                       <p className="text-[10px] text-gray-400 line-through">R$ {(item.oldPrice * item.quantity).toFixed(2)}</p>
-                       <p className="text-sm font-bold text-primary">R$ {(item.price * item.quantity).toFixed(2)}</p>
+                       {/* Preço Original Riscado */}
+                       <p className="text-[10px] text-gray-400 line-through">
+                         R$ {(item.oldPrice * item.quantity).toFixed(2)}
+                       </p>
+                       {/* Preço Final */}
+                       <p className="text-sm font-bold text-primary">
+                         R$ {(item.price * item.quantity).toFixed(2)}
+                       </p>
                     </div>
                   </div>
                 </div>
@@ -140,13 +153,22 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
             </div>
           )}
           
-          <div className="space-y-2 mb-4">
-             <div className="flex justify-between text-sm text-gray-500">
-                <span>Subtotal</span>
-                <span>R$ {total.toFixed(2)}</span>
+          <div className="space-y-3 mb-6">
+             {/* Valor Original */}
+             <div className="flex justify-between text-xs text-gray-400">
+                <span>Valor Original</span>
+                <span className="line-through">R$ {grossTotal.toFixed(2)}</span>
              </div>
-             <div className="flex justify-between text-lg font-bold text-primary">
-                <span>Total</span>
+             
+             {/* Descontos */}
+             <div className="flex justify-between text-xs text-green-600 font-bold">
+                <span>Descontos</span>
+                <span>- R$ {totalSavings.toFixed(2)}</span>
+             </div>
+             
+             {/* Total Final */}
+             <div className="flex justify-between text-xl font-bold text-primary pt-3 border-t border-gray-100">
+                <span>Total a Pagar</span>
                 <span>R$ {total.toFixed(2)}</span>
              </div>
           </div>
@@ -156,11 +178,11 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
             disabled={cartItems.length === 0}
             className="w-full bg-whatsapp hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold uppercase tracking-widest py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
           >
-            Finalizar Pedido <ArrowRight size={18} />
+            Finalizar Pedido no WhatsApp <ArrowRight size={18} />
           </button>
           
           <p className="text-[10px] text-center text-gray-400 mt-3">
-            O pedido será enviado para o WhatsApp da loja para confirmação.
+            Envie o pedido para nosso atendente confirmar o estoque e pagamento.
           </p>
         </div>
       </div>

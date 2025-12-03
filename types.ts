@@ -1,3 +1,4 @@
+
 export type BrandType = 'TRUSS' | 'WELLA' | 'BRAÉ' | 'SEBASTIAN' | 'CADIVEU' | 'MINIATURA' | 'TODAS';
 
 export interface Product {
