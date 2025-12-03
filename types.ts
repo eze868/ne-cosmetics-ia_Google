@@ -3,14 +3,15 @@ export type BrandType = 'TRUSS' | 'WELLA' | 'BRAÉ' | 'SEBASTIAN' | 'CADIVEU' | 
 export interface Product {
   id: number;
   brand: BrandType;
-  categoryId: string; // Novo campo para filtro por categoria
+  categoryId: string;
   name: string;
-  description: string; // Descrição curta para o card
-  longDescription?: string; // Descrição longa para o modal
+  description: string;
+  longDescription?: string;
   image: string;
   price: number;
   oldPrice: number;
   tags: string[];
+  criticalStock?: boolean; // Novo campo para gatilho de escassez
 }
 
 export interface Category {

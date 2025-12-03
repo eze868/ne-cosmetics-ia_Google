@@ -29,7 +29,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/84Km04Dw/truss-kit.webp',
     price: 159.90,
     oldPrice: 199.90,
-    tags: ['Reconstrução', 'Resistência', 'Brilho']
+    tags: ['Reconstrução', 'Resistência', 'Brilho'],
+    criticalStock: true
   },
   {
     id: 2,
@@ -53,7 +54,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/TB5QwD5t/Truss-plus.webp',
     price: 159.90,
     oldPrice: 199.90,
-    tags: ['Rápido', 'Resultado Imediato', 'Tratamento']
+    tags: ['Rápido', 'Resultado Imediato', 'Tratamento'],
+    criticalStock: true
   },
   {
     id: 4,
@@ -77,7 +79,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/XrJPbFTB/Truss-uso-Obrigatorio.webp',
     price: 109.90,
     oldPrice: 149.90,
-    tags: ['Salvador', 'Reconstrução', 'Danos Severos']
+    tags: ['Salvador', 'Reconstrução', 'Danos Severos'],
+    criticalStock: true
   },
 
   // --- WELLA ---
@@ -115,7 +118,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/3m8VgRd4/b-2df75f6686a24e9b5ead8b3ae5895a58.webp',
     price: 142.90,
     oldPrice: 309.90,
-    tags: ['Nutrição', 'Vitaminas', 'Concentrado']
+    tags: ['Nutrição', 'Vitaminas', 'Concentrado'],
+    criticalStock: true
   },
   {
     id: 9,
@@ -163,7 +167,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/5WVt4KSg/Shampoo-Wella-Professionals-Invigo-Cool-Blonde-Recharge-250ml.webp',
     price: 54.90,
     oldPrice: 139.90,
-    tags: ['Loiro', 'Matizador', 'Platina']
+    tags: ['Loiro', 'Matizador', 'Platina'],
+    criticalStock: true
   },
   {
     id: 13,
@@ -199,7 +204,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/1GXg699R/Kit-Shampoo-Wella-Professionals-Fusion-1000ml.webp',
     price: 364.99,
     oldPrice: 758.90,
-    tags: ['Kit Salão', 'Econômico', 'Completo']
+    tags: ['Kit Salão', 'Econômico', 'Completo'],
+    criticalStock: true
   },
   {
     id: 16,
@@ -223,7 +229,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/bRbQM5fT/Wella-Professionals-Invigo-Color-Brilliance-Shampoo-1000ml.webp',
     price: 184.90,
     oldPrice: 322.90,
-    tags: ['Proteção Cor', '1 Litro', 'Profissional']
+    tags: ['Proteção Cor', '1 Litro', 'Profissional'],
+    criticalStock: true
   },
   {
     id: 18,
@@ -271,7 +278,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/HD8MCjfY/Wella-Professionals-Oil-Reflections-leo-Capilar-100ml.webp',
     price: 129.90,
     oldPrice: 179.90,
-    tags: ['Óleo', 'Finalizador', 'Luxo']
+    tags: ['Óleo', 'Finalizador', 'Luxo'],
+    criticalStock: true
   },
   {
     id: 22,
@@ -309,7 +317,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/p6WdZWfV/Condicionador-Bra-Revival-250ml.webp',
     price: 39.90,
     oldPrice: 89.90,
-    tags: ['Renascimento', 'Elasticidade', 'Força']
+    tags: ['Renascimento', 'Elasticidade', 'Força'],
+    criticalStock: true
   },
   {
     id: 25,
@@ -335,7 +344,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/C3svxp17/d7bf38e2-608d-4a6d-9cb6-a0c7f0a41f8b.jpg',
     price: 54.90,
     oldPrice: 119.90,
-    tags: ['Elixir', 'Leveza', 'Styling']
+    tags: ['Elixir', 'Leveza', 'Styling'],
+    criticalStock: true
   },
 
   // --- CADIVEU ---
@@ -411,7 +421,8 @@ export const PRODUCTS: Product[] = [
     image: 'https://i.ibb.co/bgdGf8rR/Wella-Professional-Ultimate-Repair-Mini-Shampoo-50ml.webp',
     price: 34.90,
     oldPrice: 59.90,
-    tags: ['SOS', 'Rápido', 'Viagem']
+    tags: ['SOS', 'Rápido', 'Viagem'],
+    criticalStock: true
   },
   {
     id: 33,

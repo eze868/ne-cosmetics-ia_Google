@@ -2,10 +2,10 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>N&E Professional Cosmetics</title>
     
-    <!-- Import Map para React e Dependências (Apenas React 18) -->
+    <!-- Import Map: FIXO no React 18 -->
     <script type="importmap">
 {
   "imports": {
@@ -21,10 +21,10 @@
 }
 </script>
     
-    <!-- Tailwind CSS via CDN para renderização imediata -->
+    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Configuração do Tema Tailwind -->
+    <!-- Configuração do Tema High-Impact Persuasive -->
     <script>
       tailwind.config = {
         theme: {
@@ -34,24 +34,51 @@
               serif: ['Playfair Display', 'serif'],
             },
             colors: {
-              gold: '#D4AF37',
-              truss: '#FF6B35',
-              wella: '#8B4513',
-              brae: '#1E88E5',
-              sebastian: '#000000',
-              cadiveu: '#9C27B0',
-              mini: '#FF9800',
+              primary: '#111111',     // Preto Autoridade
+              surface: '#FFFFFF',     // Branco Puro
+              accent: '#F59E0B',      // Ouro Rico (Valor)
+              action: '#059669',      // Verde Esmeralda (Ação)
+              alert: '#DC2626',       // Vermelho Urgência (Escassez/Desconto)
               whatsapp: '#25D366',
             },
+            boxShadow: {
+              'persuasive': '0 10px 40px -10px rgba(0,0,0,0.15)',
+              'glow': '0 0 15px rgba(5, 150, 105, 0.3)',
+            },
             animation: {
-              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'fade-in': 'fadeIn 0.6s ease-out forwards',
+              'slide-up': 'slideUp 0.6s ease-out forwards',
+              'pulse-gentle': 'pulseGentle 2s infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' }
+              },
+              slideUp: {
+                '0%': { opacity: '0', transform: 'translateY(15px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' }
+              },
+              pulseGentle: {
+                '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                '50%': { opacity: '0.95', transform: 'scale(0.98)' }
+              }
             }
           }
         }
       }
     </script>
+    <style>
+      .hide-scrollbar::-webkit-scrollbar { display: none; }
+      .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      
+      body {
+        background-color: #F3F4F6; /* Cinza muito suave para destacar o branco dos cards */
+        color: #111111;
+      }
+    </style>
   </head>
-  <body>
+  <body class="antialiased pb-10">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
